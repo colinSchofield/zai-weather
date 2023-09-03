@@ -116,6 +116,6 @@ Alternatively, rather than *polling* our providers, it might be possible to subs
 Thank you guys for giving me this coding challenge, I had a lot of fun working on it. 🙂
 
 **Colin Schofield**  
-e: colin_sch@yahoo.com  
+e: colin.schofield@gmail.com  
 p: 0448 644 233  
 l: https://www.linkedin.com/in/colins/
