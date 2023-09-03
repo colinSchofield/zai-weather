@@ -27,7 +27,7 @@ The service returns a JSON payload with a unified response as per the specificat
 
 The status and message returns the human readable HTTP Status Code, along with diagnostic information about the payload (i.e. 'Request successful', 'Request successful (cached)', 'Request failure (cache is stale)' or 'Location could not be found')
 
-For further details on this, please refer to the included Open API 3 specification [here](http://github.com/ColinSchofield/zai-weather/open-api/index.html).
+For further details on this, please refer to the included Open API 3 specification [here](https://github.com/colinSchofield/zai-weather/tree/main/open-api).
 
 Open API can be easily loaded into Stoplight for the API design first approach and then to Sauce Labs (or Postman collection via Newman) for all your API contract testing needs.
 
