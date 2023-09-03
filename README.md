@@ -89,11 +89,11 @@ In this section I will highlight a couple of issues that I was considering durin
 
 I was mindful of keeping my solution as simple as possible, as per the requirements, without going overboard ([Yagni](https://en.wikipedia.org/wiki/You_aren%27t_gonna_need_it)).
 
-1. The program was developed using Idiomatic Go and it was kept clean, clear and as simple as possible with comments provided when deemed appropriate.
+1. The program was developed using Idiomatic Go and was kept clean, clear and as simple as possible with comments provided when deemed appropriate.
 
-2. Where appropriate configuration values have been used (such as the TTL of the cache, the web access keys etc). These  were specified as environment variables, as a convenience to Docker integration.
+2. Where appropriate, configuration values have been used (such as the TTL of the cache, the web access keys etc). These were specified as environment variables, as a convenience to Docker integration.
 
-3. Docker was used during development. This was to make the service more easily includable in a production environment (i.e. We may want to load it onto EKS, ECS, Fargate, Lambda etc)
+3. Docker was used during development. This was to make the service easily includable in a production environment (i.e. We may want to load it onto EKS, ECS, Fargate, Lambda etc).
 
 4. The task involved two 3rd party weather providers (a primary and a fail-over). I considered the scenario where either the primary or *both* the primary and fail-over went down. This would potentially lead to a double timeout of over six seconds per request(!) To mitigate against this, the [circuit breaker design pattern](https://en.wikipedia.org/wiki/Circuit_breaker_design_pattern) was employed.
 
@@ -105,15 +105,15 @@ I was mindful of keeping my solution as simple as possible, as per the requireme
 
 1. The scalability of the service could be improved by adding horizontal scaling behind a load balancer and through fine tuning the cache TTL.
 
-To gain *more* performance, would require a design discussion, but here is what I am thinking. Each request should **not** require a callout to a 3rd party provider. Instead, just before the cache is going to expire, a request is made that gathers **all** the cities in Australia and store this information. This would provide instant access to our callers.
+2. To gain *more* performance, would require a design discussion, but here is what I am thinking. Each request should **not** require a callout to a 3rd party provider. Instead, just before the cache is going to expire, a request is made that gathers **all** the cities in Australia and store this information. This would much more efficient and would provide instant access for our callers.
 
-Alternatively, rather than *polling* our providers, it might be possible to subscribe to a weather broker and receive notifications when a weather change has occurred. Then the *latest* information could be updated from the weather providers.
+3. Alternatively, rather than *polling* our providers, it might be possible to subscribe to a weather broker and receive notifications when a weather change has occurred. Then the *latest* information could be updated from the weather providers.
 
-2. In terms of reliability, I feel that we would definitely benefit from the addition of [Prometheus](https://grafana.com/go/webinar/intro-to-observability-with-prometheus/) metrics for monitoring and observability. Looking at the information recorded by the Circuit Breaker component [gobreaker.Counts](https://github.com/sony/gobreaker/blob/70f7cbc53af96e27e1042a5f5803c9b960e0ca81/gobreaker.go#L47). This would be excellent for this purpose and could be used to build up alerts and/or dashboards (via Grafana).
+4. In terms of reliability, I feel that we would benefit from the addition of [Prometheus](https://grafana.com/go/webinar/intro-to-observability-with-prometheus/) metrics for monitoring and observability. The information recorded by the Circuit Breaker component (shown here: [gobreaker.Counts](https://github.com/sony/gobreaker/blob/70f7cbc53af96e27e1042a5f5803c9b960e0ca81/gobreaker.go#L47)) would be excellent for this purpose and could be used to build up alerts and/or dashboards (via Grafana).
 
 
 
-Thank you guys for giving me this coding challenge, I had a lot of fun working on it. 🙂
+Thank you for giving me this coding challenge, I had a lot of fun working on it. 🙂
 
 **Colin Schofield**  
 e: colin.schofield@gmail.com  
