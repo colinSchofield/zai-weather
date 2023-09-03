@@ -17,7 +17,7 @@ import (
 )
 
 const (
-	// These message are returne in the JSON message field
+	// These message are returned in the JSON message field
 	MessageSuccess      = "Request successful"
 	MessageSuccessCache = "Request successful (cached)"
 	MessageFailureCache = "Request failure (cache is stale)"
@@ -98,7 +98,7 @@ func (w *DefaultWeatherController) GetWeather(gCtx *gin.Context) {
 		return
 	}
 
-	// Assumee that the location is invalid.
+	// Assume that the location is invalid.
 	weather := model.Weather{
 		Status:  http.StatusNotFound,
 		Message: MessageFailure,
@@ -124,11 +124,11 @@ func (w *DefaultWeatherController) fetchWeather(
 		// TODO Add in some metrics here (perhaps based upon cb.Counts())
 		return false
 	} else {
-		response := res.(*model.Weather)
-		response.Status = http.StatusOK
-		response.Message = MessageSuccess
-		w.weatherCache.Set(location, response)
-		gCtx.JSON(http.StatusOK, res)
+		weather := res.(*model.Weather)
+		weather.Status = http.StatusOK
+		weather.Message = MessageSuccess
+		w.weatherCache.Set(location, weather)
+		gCtx.JSON(http.StatusOK, weather)
 		return true
 	}
 }
