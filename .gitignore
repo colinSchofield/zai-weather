@@ -1,0 +1,10 @@
+### Go ###
+**.bin
+**coverage.out
+**vendor
+**golangci.out
+**.build
+__debug_bin
+
+### VS Code ###
+.vscode
